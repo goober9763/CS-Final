@@ -16,7 +16,7 @@ class Interface:
 		self.screen.fill(self.white)
 		pygame.display.flip()
 		self.listOfNotesStaffOne = [(-1) for i in range(10)]
-		
+
 	#def whenThereIsAClick(self):
 
 	def createScreen(self):
@@ -38,18 +38,18 @@ class Interface:
 
 		self.matrixOfNotesStaffOne = [["empty" for boxes in range(6)] for collumns in range(10)]
 		self.matrixOfNotesStaffTwo = [["empty" for boxes in range(6)] for collumns in range(10)]
-		
+
 		for nextVarticleLine in range(10):
 			pygame.draw.line(self.screen, self.black, (4/15 * self.screenWidth + self.verticleLineNumber * 1/15 * self.screenWidth, self.screenHeight * 4/25), (4/15 * self.screenWidth + self.verticleLineNumber * 1/15 * self.screenWidth, self.screenHeight - self.screenHeight/5), 3)
 			self.verticleLineNumber += 1
 			self.verticleBoxLineNumberStaffOne = 0
 			self.verticleBoxLineNumberStaffTwo = 0
-			
+
 			for nextBoxDown in range(6):
 				noteStaffOne.clickBoxStaffOne(self.screen, self.screenWidth, self.screenHeight, self.verticleLineNumber, self.verticleBoxLineNumberStaffOne)
 				self.verticleBoxLineNumberStaffOne += 1
 				self.matrixOfNotesStaffOne[nextVerticleLine][nextBoxDown] = NoteInteractionStaffOne((nextVerticleLine, nextBoxDown))
-			
+
 			for nextBoxDownStaffTwo in range(6):
 				noteStaffTwo.clickBoxStaffTwo(self.screen, self.screenWidth, self.screenHeight, self.verticleLineNumber, self.verticleBoxLineNumberStaffTwo)
 				self.verticleBoxLineNumberStaffTwo += 1
@@ -93,7 +93,7 @@ GUI.createScreen()
 while True:
 	event = pygame.event.wait()
 
-	if event.type == QUIT: 
+	if event.type == QUIT:
 		pygame.display.quit()
 		pygame.quit()
 		sys.exit()
@@ -103,11 +103,11 @@ while True:
 		GUI.createScreen()
 
 	if event.type == pygame.MOUSEBUTTONUP:
-		positionOfTheMouse = pygame.mouse.get_pos() 
+		positionOfTheMouse = pygame.mouse.get_pos()
 		WhenABoxIsClickedInStaffOne(positionOfTheMouse)
 		WhenABoxIsClickedInStaffTwo(positionOfTheMouse)
 
-		pygame.display.flip()	
+		pygame.display.flip()
 
 
 		#print(event.button)
@@ -115,7 +115,3 @@ while True:
 		#	print("right click")
 		#if event.button == 3:
 		#	print("left click")
-
-
-
-
