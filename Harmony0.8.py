@@ -75,8 +75,9 @@ class Interface:
 				if currentNote.boxStaffOne.collidepoint(clickPositionStaffOne):
 					pygame.Surface.blit(self.screen, currentNote.note, (currentNote.boxStaffOne.x, currentNote.boxStaffOne.y))
 					if (self.listOfNotesStaffOne[currentNote.position[0]] != (-1)):
-						pygame.draw.rect(self.screen, self.white, matrixOfNotesStaffOne[currentNote.position[0]][listOfNotesStaffOne[currentNote.position[0]]])
+						pygame.draw.rect(self.screen, self.white, self.matrixOfNotesStaffOne[currentNote.position[0]][self.listOfNotesStaffOne[currentNote.position[0]]].boxStaffOne)
 					self.listOfNotesStaffOne[currentNote.position[0]] = currentNote.position[1]
+					print(self.listOfNotesStaffOne)
 
 	def	WhenABoxIsClickedInStaffTwo(self, clickPositionStaffTwo):
 			for list in self.matrixOfNotesStaffTwo:
@@ -84,9 +85,9 @@ class Interface:
 					if currentNote.boxStaffTwo.collidepoint(clickPositionStaffTwo):
 						pygame.Surface.blit(self.screen, currentNote.note, (currentNote.boxStaffTwo.x, currentNote.boxStaffTwo.y))
 						if (self.listOfNotesStaffTwo[currentNote.position[0]] != (-1)):
-							pygame.draw.rect(self.screen, self.white, matrixOfNotesStaffTwo[currentNote.position[0]][listOfNotesStaffTwo[currentNote.position[0]]])
+							pygame.draw.rect(self.screen, self.white, self.matrixOfNotesStaffTwo[currentNote.position[0]][self.listOfNotesStaffTwo[currentNote.position[0]]].boxStaffTwo)
 						self.listOfNotesStaffTwo[currentNote.position[0]] = currentNote.position[1]
-
+						print(self.listOfNotesStaffTwo)
 
 
 GUI = Interface()
