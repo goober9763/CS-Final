@@ -130,6 +130,8 @@ class Interface:
 							pygame.draw.rect(self.screen, self.black, self.matrixOfNotesOnLineStaffTwo[currentNote.position[0]][self.listOfLineNotesStaffTwo[currentNote.position[0]]].lineStaffTwo)
 						pygame.Surface.blit(self.screen, currentNote.note, (currentNote.boxStaffTwo.x, currentNote.boxStaffTwo.y))
 						self.listOfNotesStaffTwo[currentNote.position[0]] = currentNote.position[1]
+						self.listOfLineNotesStaffTwo[currentNote.position[0]] = -1
+
 						print(self.listOfNotesStaffTwo)
 
 	def	WhenALineIsClickedInStaffOne(self, clickPositionStaffOne):
@@ -163,8 +165,10 @@ class Interface:
 					pygame.Surface.blit(self.screen, currentBox.note, (currentBox.blitDrawBoxStaffTwo.x, currentBox.blitDrawBoxStaffTwo.y))
 					self.listOfLineNotesStaffTwo[currentNote.position[0]] = currentNote.position[1]
 					self.listOfDrawBoxesStaffTwo[currentBox.position[0]] = currentBox.position[1]
+					self.listOfNotesStaffTwo[currentNote.position[0]] = -1
+
 					print(self.listOfLineNotesStaffTwo)
-	# 
+	#
 	# def PlaySequence(self):
 	# 	for i in range(10):
 	# 		if listOfNotesStaffOne[i] != -1:
