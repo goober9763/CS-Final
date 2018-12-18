@@ -3,6 +3,7 @@ from noteClass2 import NoteInteractionStaffOne
 from noteClass2 import NoteInteractionStaffTwo
 from pygame.locals import *
 import sys
+import time
 pygame.init()
 pygame.display.set_caption("Harmonise")
 class Interface:
@@ -22,6 +23,19 @@ class Interface:
 		self.listOfDrawBoxesStaffOne = [(-1) for i in range(10)]
 		self.listOfDrawBoxesStaffTwo = [(-1) for i in range(10)]
 
+		a3 = pygame.mixer.Sound("./audio/A3.wav")
+		b3 = pygame.mixer.Sound("./audio/B3.wav")
+		c3 = pygame.mixer.Sound("./audio/C3.wav")
+		d2 = pygame.mixer.Sound("./audio/D2.wav")
+		d3 = pygame.mixer.Sound("./audio/D3.wav")
+		e2 = pygame.mixer.Sound("./audio/E2.wav")
+		e3 = pygame.mixer.Sound("./audio/E3.wav")
+		f2 = pygame.mixer.Sound("./audio/F2.wav")
+		f3 = pygame.mixer.Sound("./audio/F3.wav")
+		g2 = pygame.mixer.Sound("./audio/G2.wav")
+		g3 = pygame.mixer.Sound("./audio/G3.wav")
+		self.error = pygame.mixer.Sound("./audio/Error.wav")
+		self.soundList = [g3,f3,e3,d3,c3,b3,a3,g2,f2,e2,d2]
 
 	#def whenThereIsAClick(self):
 
@@ -168,21 +182,44 @@ class Interface:
 					self.listOfNotesStaffTwo[currentNote.position[0]] = -1
 
 					print(self.listOfLineNotesStaffTwo)
-	#
-	# def PlaySequence(self):
-	# 	for i in range(10):
-	# 		if listOfNotesStaffOne[i] != -1:
-	# 			#play sound
-	# 			undefined
-	# 		else:
-	# 			#play sound list of Line Notes
-	# 			undefined
-	# 		if listOfNotesStaffTwo[i] != -1:
-	# 			#play sound
-	# 			undefined
-	# 		else:
-	# 			#play sound list of Line Notes
-	# 			undefined
+	def CheckSequence(self):
+		for i in range(10):
+			if self.listOfNotesStaffOne[i] != -1:
+				staffOneSound = self.soundList[self.listOfNotesStaffOne[i]]
+			elif self.listOfLineNotesStaffOne[i] != -1:
+				staffOneSound = self.soundList[self.listOfLineNotesStaffOne[i]]
+			else:
+				self.error.play()
+				return False
+			if self.listOfNotesStaffTwo[i] != -1:
+				staffTwoSound = self.soundList[self.listOfNotesStaffTwo[i]]
+			elif self.listOfLineNotesStaffTwo[i] != -1:
+				staffTwoSound = self.soundList[self.listOfLineNotesStaffTwo[i]]
+			else:
+				self.error.play()
+				return False
+		return True
+
+
+	def PlaySequence(self,mousePosition):
+
+		if self.playRect.collidepoint(mousePosition) and self.CheckSequence():
+			staffOneSound = self.error
+			staffTwoSound = self.error
+			for i in range(10):
+				if self.listOfNotesStaffOne[i] != -1:
+					staffOneSound = self.soundList[self.listOfNotesStaffOne[i]]
+				elif self.listOfLineNotesStaffOne[i] != -1:
+					staffOneSound = self.soundList[self.listOfLineNotesStaffOne[i]]
+				if self.listOfNotesStaffTwo[i] != -1:
+					staffTwoSound = self.soundList[self.listOfNotesStaffTwo[i]]
+				elif self.listOfLineNotesStaffTwo[i] != -1:
+					staffTwoSound = self.soundList[self.listOfLineNotesStaffTwo[i]]
+
+				pygame.mixer.Channel(0).play(staffOneSound)
+				pygame.mixer.Channel(1).play(staffTwoSound)
+				time.sleep(0.8)
+
 
 
 
@@ -220,7 +257,6 @@ while True:
 		GUI.WhenABoxIsClickedInStaffTwo(positionOfTheMouse)
 		GUI.WhenALineIsClickedInStaffOne(positionOfTheMouse)
 		GUI.WhenALineIsClickedInStaffTwo(positionOfTheMouse)
-
-
+		GUI.PlaySequence(positionOfTheMouse)
 
 		pygame.display.flip()
